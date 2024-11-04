@@ -37,9 +37,9 @@ export const Header = () => {
                     {/* Content visible on all screen sizes */}
                     <div>
                         <div className="h-12 flex items-center">
-                            <h1 className="text-3xl">Style Guide</h1>
+                            <h1 className="text-3xl">Component Zone</h1>
                         </div>
-                        <p className="font-pixeloid text-sm text-gray-400">Components and Style Guide</p>
+                        <p className="font-pixeloid text-sm text-gray-400">Patterns and Style Guide</p>
                     </div>
                     
                     {/* Desktop-only content */}
