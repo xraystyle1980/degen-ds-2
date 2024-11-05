@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button'
 import { SquareChevronRight } from 'lucide-react'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import HomeIcon from '@/assets/icons/react.svg?react'
+import WalletIcon from 'pixelarticons/svg/file.svg?react'
+import ChevronDownIcon from 'pixelarticons/svg/file.svg?react'
 
 interface LogoProps {
   src: string;
@@ -19,18 +21,24 @@ const Logo: FC<LogoProps> = ({ src, alt }) => (
 
 const NavLinks: FC = () => (
   <nav className="flex gap-4">
-    <NavLink to="#" className="block py-2 text-lg">Exchange</NavLink>
+    <NavLink to="#" className="block px-2">Exchange</NavLink>
 
     <DropdownMenu>
       <DropdownMenuTrigger>
-        Dropdown Menu
+        <div className="flex gap-x-2">
+          <ChevronDownIcon className="SVG-current-color w-4" /> tricedesihjgn.eth
+        </div>      
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white rounded-none border-none shadow-black">
-      <DropdownMenuLabel>Menu Label</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>Menu Item</DropdownMenuItem>
-        <DropdownMenuItem>Menu Item</DropdownMenuItem>
-      </DropdownMenuContent>
+      <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black">
+      <div className="flex gap-x-2">
+        <DropdownMenuLabel>0x9876...ABCD</DropdownMenuLabel>
+        <Button variant="ghost" size="icon">Copy</Button>
+      </div>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem>1,843 DGN</DropdownMenuItem>
+      <DropdownMenuItem>Sepolia</DropdownMenuItem>
+      <DropdownMenuItem>Disconnect</DropdownMenuItem>
+    </DropdownMenuContent>
     </DropdownMenu>
   </nav>
 );
@@ -39,10 +47,10 @@ const WalletDropdown: FC = () => (
   <DropdownMenu>
     <DropdownMenuTrigger>
       <div className="flex gap-x-2">
-        <HomeIcon /> tricedesign.eth
+        <WalletIcon className="SVG-current-color w-4" /> tricedesign.eth
       </div>
     </DropdownMenuTrigger>
-    <DropdownMenuContent className="bg-white rounded-none border-none shadow-black">
+    <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black">
       <div className="flex gap-x-2">
         <DropdownMenuLabel>0x9876...ABCD</DropdownMenuLabel>
         <Button variant="ghost" size="icon">Copy</Button>
@@ -60,7 +68,7 @@ const Navbar: FC = () => (
     <div className="flex w-full items-center justify-between">
       
       {/* Mobile sheet */}
-      <Sheet>
+      {/* <Sheet>
         <SheetTrigger asChild>
           <Button variant="ghost" size="icon" className="lg:hidden">
             <SquareChevronRight className="h-6 w-6" /> 
@@ -73,7 +81,7 @@ const Navbar: FC = () => (
             <NavLinks />
           </div>
         </SheetContent>
-      </Sheet>
+      </Sheet> */}
 
       {/* Desktop navigation */}
       <div className="hidden lg:flex w-full justify-between items-center px-4">
@@ -81,7 +89,9 @@ const Navbar: FC = () => (
           <Logo src="src/assets/degen-logo-default.svg" alt="DEGEN Logo" />
           <NavLinks />
         </div>
-        <WalletDropdown />
+        <div className='flex gap-4 items-center'>
+          <WalletDropdown />
+        </div>
       </div>
     </div>
   </nav>

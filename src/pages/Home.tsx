@@ -1,18 +1,3 @@
-import { NavLink } from "react-router-dom"
-import Icon from '@/components/ui/Icon'
-import HomeIcon from '@/assets/icons/react.svg?react'
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
-import { Menu } from "lucide-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
 import Navbar from "@/components/ui/Navbar"
 
 const Home = () => {

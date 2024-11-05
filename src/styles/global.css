@@ -55,7 +55,10 @@
     height: 3rem;
   }
   .component-zone {
-    @apply flex flex-col h-[80vh] bg-black p-8 border-2 border-dashed border-Magenta-0;
+    @apply flex flex-col h-[80vh] bg-Neutral-+3 p-8 border-2 border-dashed border-Magenta-0;
+  }
+  .SVG-current-color {
+    @apply fill-current;
   }
 }
 
