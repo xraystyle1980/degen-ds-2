@@ -15,52 +15,53 @@ interface LogoProps {
 
 const Logo: FC<LogoProps> = ({ src, alt }) => (
   <NavLink to="/">
-    <img src={src} className="w-20 my-2" alt={alt} />
+    <img src={src} className="w-24 my-2" alt={alt} />
   </NavLink>
 );
 
 const NavLinks: FC = () => (
   <nav className="flex gap-4">
     <div className="flex flex-row-reverse gap-x-2 px-2 py-1 rounded-md hover:bg-gray-100 transition-colors duration-200 ease-in-out">    
-      <NavLink to="#">Exchange</NavLink>
+      <NavLink to="#" className="text-sm">Menu Item</NavLink>
     </div>
     <DropdownMenu>
       <DropdownMenuTrigger>
         <div className="flex flex-row-reverse gap-x-2 px-2 py-1 rounded-md hover:bg-gray-100 transition-colors duration-200 ease-in-out">
-          <ChevronDownIcon className="w-4" /> Dropdown
+          <ChevronDownIcon className="w-4" /> <span className="text-sm">Dropdown</span>
         </div>      
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black">
-      <div className="flex gap-x-2">
-        <DropdownMenuLabel>0x9876...ABCD</DropdownMenuLabel>
-        <Button variant="ghost" size="icon"><CopyIcon className="w-4" /></Button>
-      </div>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem>1,843 DGN</DropdownMenuItem>
-      <DropdownMenuItem>Sepolia</DropdownMenuItem>
-      <DropdownMenuItem>Disconnect</DropdownMenuItem>
-    </DropdownMenuContent>
+        <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black">
+          <DropdownMenuLabel>Dropdown Links</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <NavLink to="#" className="text-sm">Menu Item One</NavLink>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <NavLink to="#" className="text-sm">Menu Item Two</NavLink>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <NavLink to="#" className="text-sm">Menu Item Three</NavLink>
+          </DropdownMenuItem>
+      </DropdownMenuContent>
     </DropdownMenu>
   </nav>
 );
 
 const WalletDropdown: FC<WalletDropdownProps> = ({ walletAddress }) => {
-  // Copy function
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
       .then(() => {
-        console.log("Copied to clipboard:", text); // Feedback in console
+        console.log("Copied to clipboard:", text);
       })
       .catch((err) => {
         console.error("Failed to copy:", err);
       });
-    };
-
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <div className="flex gap-x-2 px-2 py-1 rounded-md hover:bg-gray-100 transition-colors duration-200 ease-in-out">
-          <WalletIcon className="w-4" /> tricedesign.eth <ChevronDownIcon className="w-4" />
+          <WalletIcon className="w-4" /> <span className="text-sm">tricedesign.eth</span> <ChevronDownIcon className="w-4" />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black">
@@ -72,10 +73,6 @@ const WalletDropdown: FC<WalletDropdownProps> = ({ walletAddress }) => {
               <span className="sr-only">Copy address</span>
             </Button>
           </DropdownMenuLabel>
-          {/* <Button variant="ghost" size="icon" onClick={() => handleCopy(walletAddress)}>
-            <CopyIcon className="w-4" />
-            <span className="sr-only">Copy address</span>
-          </Button> */}
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem>1,843 DGN</DropdownMenuItem>
