@@ -1,5 +1,4 @@
-// Icon.tsx
-import React from 'react';
+import React from 'react'
 
 interface IconProps {
   src: React.FunctionComponent<React.SVGProps<SVGSVGElement>>; // SVG component imported with svgr
@@ -12,4 +11,4 @@ const Icon: React.FC<IconProps> = ({ src: SvgComponent, size = '8', color = 'tex
   return <SvgComponent className={`h-${size} w-${size} ${color} ${additionalClasses}`} />;
 };
 
-export default Icon;
+export default Icon

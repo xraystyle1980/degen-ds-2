@@ -5,7 +5,7 @@ import { Menu } from "lucide-react"
 
 export const Header = () => {
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-zinc-100">
+        <header className="sticky top-0 z-50 w-full border-b bg-White--2">
             <nav className="container mx-auto py-4 px-4 flex items-center justify-between">
                 <div className="flex w-full justify-between items-center">
                     <Sheet>
