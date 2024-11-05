@@ -5,12 +5,12 @@ export default {
   theme: {
   	extend: {
 
+		/* Degen Design System Imports */
 		fontFamily: {
-			pixeloid: ['Pixeloid Mono', 'monospace'], /* Degen Design System Imports */
-			nunitosans: ['Nunito Sans', 'sans-serif'], /* Degen Design System Imports */
+			pixeloid: ['Pixeloid Mono', 'monospace'], 
+			nunitosans: ['Nunito Sans', 'sans-serif'], 
 		},
 
-		/* Degen Design System Imports */
 		fontSize: {
 			'64': '64px',
 			'51': '51px',
@@ -21,7 +21,6 @@ export default {
 			'18': '18px',
 		},
 
-  		/* Degen Design System Imports */
 		lineHeight: {
 			'72': '72px',
 			'60': '60px',
