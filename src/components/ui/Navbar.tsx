@@ -4,7 +4,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import CopyIcon from 'pixelarticons/svg/copy.svg?react'
-import WalletIcon from 'pixelarticons/svg/wallet.svg?react'
+import AvatarIcon from 'pixelarticons/svg/avatar.svg?react'
 import ChevronDownIcon from 'pixelarticons/svg/chevron-down.svg?react'
 import ArrowRightBox from 'pixelarticons/svg/arrow-right-box.svg?react'
 
@@ -21,27 +21,53 @@ const Logo: FC<LogoProps> = ({ src, alt }) => (
 
 const NavLinks: FC = () => (
   <nav className="flex gap-4">
-    <div className="flex flex-row-reverse gap-x-2 px-2 py-1 rounded-md hover:bg-gray-100 transition-colors duration-200 ease-in-out">    
-      <NavLink to="#" className="text-sm">Menu Item</NavLink>
+    <div className="flex flex-row-reverse px-2 py-1 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">    
+      <NavLink to="#" className="text-xs">Menu Item</NavLink>
     </div>
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <div className="flex flex-row-reverse gap-x-2 px-2 py-1 rounded-md hover:bg-gray-100 transition-colors duration-200 ease-in-out">
-          <ChevronDownIcon className="w-4" /> <span className="text-sm">Dropdown</span>
+        <div className="flex flex-row-reverse gap-x-1 px-2 py-1 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">
+          <ChevronDownIcon className="w-4" /><span className="text-xs">Dropdown</span>
         </div>      
       </DropdownMenuTrigger>
         <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black">
-          <DropdownMenuLabel>Dropdown Links</DropdownMenuLabel>
+          <DropdownMenuLabel className="text-xs">Dropdown Links</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <NavLink to="#" className="text-sm">Menu Item One</NavLink>
+            <NavLink to="#" className="text-xs">Menu Item One</NavLink>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <NavLink to="#" className="text-sm">Menu Item Two</NavLink>
+            <NavLink to="#" className="text-xs">Menu Item Two</NavLink>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <NavLink to="#" className="text-sm">Menu Item Three</NavLink>
+            <NavLink to="#" className="text-xs">Menu Item Three</NavLink>
           </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  </nav>
+);
+
+const NetworkLinks: FC = () => (
+  <nav className="flex gap-4">
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <div className="flex flex-row-reverse gap-x-1 px-2 rounded-md transition-colors duration-200 ease-in-out">
+          <ChevronDownIcon className="w-4" /><span className="text-xs">Sepolia</span>
+        </div>      
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black">
+        <DropdownMenuItem>
+          <NavLink to="#" className="text-xs">Ethereum Mainnet</NavLink>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <NavLink to="#" className="text-xs">Base</NavLink>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <NavLink to="#" className="text-xs">Polygon</NavLink>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <NavLink to="#" className="text-xs">Sepolia</NavLink>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   </nav>
@@ -60,24 +86,36 @@ const WalletDropdown: FC<WalletDropdownProps> = ({ walletAddress }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <div className="flex gap-x-2 px-2 py-1 rounded-md hover:bg-gray-100 transition-colors duration-200 ease-in-out">
-          <WalletIcon className="w-4" /> <span className="text-sm">tricedesign.eth</span> <ChevronDownIcon className="w-4" />
+        <div className="flex gap-x-1 px-2 py-2 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">
+          <AvatarIcon className="w-4" /><span className="text-xs">tricedesign.eth</span> <ChevronDownIcon className="w-4" />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black">
-        <div className="flex gap-x-2">
+        <div className="flex gap-x-1">
           <DropdownMenuLabel>
-            <Button variant="ghost" onClick={() => handleCopy(walletAddress)}>
+            <Button variant="outline" size="sm" onClick={() => handleCopy(walletAddress)}>
               {walletAddress}
               <CopyIcon className="w-4" />
               <span className="sr-only">Copy address</span>
             </Button>
           </DropdownMenuLabel>
         </div>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>1,843 DGN</DropdownMenuItem>
-        <DropdownMenuItem>Sepolia</DropdownMenuItem>
-        <DropdownMenuItem><NavLink to="#" className="">Disconnect</NavLink></DropdownMenuItem>
+        <DropdownMenuSeparator className="bg-gray-100" />
+        <div className="flex flex-col px-2 py-2">
+          <span className="text-xs font-nunitosans">Degen Tokens</span>
+          <DropdownMenuItem className="text-xs">420,669 DGN</DropdownMenuItem>
+        </div>
+        <DropdownMenuSeparator className="bg-gray-100" />
+        <div className="flex flex-col px-2">
+            <span className="text-xs font-nunitosans">Network</span>
+            </div>
+        <DropdownMenuItem>
+          <NetworkLinks />
+        </DropdownMenuItem>
+        <DropdownMenuSeparator className="bg-gray-100" />
+        <DropdownMenuItem>
+          <NavLink to="#" className="text-xs">Disconnect</NavLink>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -107,7 +145,7 @@ const Navbar: FC = () => {
         {/* Desktop navigation */}
         <div className="hidden lg:flex w-full justify-between items-center px-4">
           <div className="flex gap-4 items-center">
-            <Logo src="src/assets/degen-logo-default.svg" alt="DEGEN Logo" />
+            <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" />
             <NavLinks />
           </div>
           <div className="flex gap-4 items-center">

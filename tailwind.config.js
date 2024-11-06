@@ -32,17 +32,18 @@ export default {
 		},
 		
   		colors: {
+			primary: '#FF3399',
+        	secondary: '#e5ff96',
+        	accent: '#d7ff1f',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			border: 'hsl(var(--border))',
-
 			transparent: 'transparent',
 			current: 'currentColor',
 
 			'just-white': '#ffffff',
 			'just-black': '#000000',
 		
-			/* Degen Design System Imports */
 			'Neutral': {
 				'-3': '#2c2c2c',
 				'-2': '#383838',
