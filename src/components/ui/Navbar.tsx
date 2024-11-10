@@ -1,25 +1,45 @@
 import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Button } from '@/components/ui/button'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
+
+// Icons from pixelarticons
 import CopyIcon from 'pixelarticons/svg/copy.svg?react'
 import AvatarIcon from 'pixelarticons/svg/avatar.svg?react'
 import ChevronDownIcon from 'pixelarticons/svg/chevron-down.svg?react'
-import MenuIcon from 'pixelarticons/svg/menu.svg?react'
-import { Menu } from "lucide-react"
-import React from 'react'
+import ArrowRightBox from 'pixelarticons/svg/arrow-right-box.svg?react'
 
 
 interface LogoProps {
   src: string;
   alt: string;
+  className?: string; // Add className as an optional prop
+};
+
+interface WalletMenuProps {
+  walletAddress: string;
+};
+
+interface NetworkSelectProps {
+  options: { value: string; label: string }[];
+  placeholder?: string;
+  onChange: (value: string) => void;
 }
 
-interface CustomDropdownMenuItemProps
-  extends React.ComponentPropsWithoutRef<typeof DropdownMenuItem> {
-  children: React.ReactNode
-}
+const networkOptions = [
+  { value: 'Mainnet', label: 'Mainnet' },
+  { value: 'Polygon', label: 'Polygon' },
+  { value: 'Sepolia', label: 'Sepolia' },
+  { value: 'Base', label: 'Base' },
+];
+
+const handleNetworkChange = (value: string) => {
+  console.log(`Selected network: ${value}`);
+};
 
 const Logo: FC<LogoProps> = ({ src, alt }) => (
   <NavLink to="/" className="inline-flex items-center">
@@ -27,170 +47,131 @@ const Logo: FC<LogoProps> = ({ src, alt }) => (
   </NavLink>
 );
 
+const TriggerLabel: FC<{ label?: string }> = ({ label = "Trigger Label Default" }) => (
+  <div className="text-xs px-2 py-1">
+    <span className="hover:bg-accent rounded-md">{label}</span>
+  </div>
+);
 
-const NavLinksDropdownMenu: FC = () => {
-  const menuItems = [
+const TokenBalance: FC<{ balance?: string }> = ({ balance = "failed to load balance" }) => (
+  <div className="text-xs px-2 py-1">
+    <span className="hover:bg-accent rounded-md">{balance}</span>
+  </div>
+);
+
+const NavLinks: FC = () => {
+  const menuItems: { label: string; route: string }[] = [
     { label: "Menu Item One", route: "#" },
     { label: "Menu Item Two", route: "#" },
     { label: "Menu Item Three", route: "#" },
   ];
   return (
-    <DropdownMenu>
-
-
-      <DropdownMenuTrigger>
-        <div className="flex items-center gap-x-1 px-2 py-1 rounded-md hover:bg-zinc-100 transition-colors duration-200 ease-in-out">
-          <span className="text-sm">Dropdown</span>
-          <ChevronDownIcon className="w-4" />
-        </div>
-      </DropdownMenuTrigger>
-
-
-      <DropdownMenuContent className="mt-2 p-2 bg-white shadow-gray-500 animate-fadeIn">
-        
-        <DropdownMenuLabel className="text-xs pl-1 font-nunitosans font-semibold uppercase text-zinc-500">Dropdown Links</DropdownMenuLabel>
-
-        <DropdownMenuSeparator className="bg-gray-100" />
-
-          {menuItems.map((item, index) => (
-            <DropdownMenuItem key={index} className="text-sm px-2 py-2 transition-colors">
-              <NavLink to={item.route} className="rounded-md transition-colors">
-                {item.label}
-              </NavLink>
-            </DropdownMenuItem>
-          ))}
-          
-
-      </DropdownMenuContent>
-
-
-    </DropdownMenu>
+    <ul className="flex flex-col">
+      {menuItems.map((item) => (
+        <li key={item.route}>
+          <NavLink to={item.route} className="text-xs px-2 py-1 hover:bg-accent rounded-md">
+            {item.label}
+          </NavLink>
+        </li>
+      ))}
+    </ul>
   );
 };
 
-
-const NetworkLinksDropdownMenu: FC = () => {
-  const networkItems = [
-    { label: "Ethereum Mainnet", action: () => switchToNetwork("Ethereum Mainnet") },
-    { label: "Base", action: () => switchToNetwork("Base") },
-    { label: "Polygon", action: () => switchToNetwork("Polygon") },
-    { label: "Sepolia", action: () => switchToNetwork("Sepolia") },
-  ];
-  const switchToNetwork = (networkName: string) => {
-    console.log(`Switching to ${networkName}`);
+const WalletMenuCopyButton: FC<WalletMenuProps> = ({ walletAddress }) => {
+  const AddressCopyButton: FC = () => {
+    return (
+      <Button variant="outline" size="sm" onClick={() => handleCopy(walletAddress)}>
+        <span className="mr-1">{walletAddress}</span>
+        <CopyIcon className="w-4" aria-hidden="true" />
+        <span className="sr-only">Copy address</span>
+      </Button>
+    );
   };
+  const handleCopy = (text: string) => 
+    navigator.clipboard.writeText(text).then(() => 
+      console.log("Copied:", text));
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <div className="flex items-center gap-x-1 px-0 py-0 rounded-md transition-colors">
-          <span className="text-sm">Sepolia</span>
-          <ChevronDownIcon className="w-4" />
-        </div>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="mt-2 bg-white shadow-gray-500 animate-fadeIn">
-        {networkItems.map((network, index) => (
-          <DropdownMenuItem
-            key={index}
-            className="text-sm flex items-center gap-x-2 px-2 py-2 transition-colors"
-            onClick={network.action}
-          >
-            <span className="rounded-md transition-colors">{network.label}</span>
-          </DropdownMenuItem>
+    <AddressCopyButton />
+  );
+};
+
+const NavbarLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => (
+  <NavLink to={to} className="text-xs hover:bg-accent px-2 py-1 rounded-md transition-colors">
+    {children}
+  </NavLink>
+);
+
+const NetworkSelect: FC<NetworkSelectProps> = ({ options, placeholder = 'Select network', onChange }) => {
+  return (
+    <Select onValueChange={onChange}>
+      <SelectTrigger className="w-full rounded-md border border-gray-300 shadow-sm">
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent className="bg-white">
+        {options.map((option) => (
+          <SelectItem key={option.value} value={option.value} className="py-2">
+            {option.label}
+          </SelectItem>
         ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </SelectContent>
+    </Select>
   );
 };
-
-
-interface WalletDropdownMenuProps {
-  walletAddress: string;
-}
-
-
-const WalletDropdownMenu: FC<WalletDropdownMenuProps> = ({ walletAddress }) => {
-  const handleCopy = (text: string) => navigator.clipboard.writeText(text).then(() => console.log("Copied:", text));
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="w-full">
-        <div className="flex items-center gap-x-1 px-2 py-1 rounded-md hover:bg-zinc-100 transition-colors duration-200 ease-in-out">
-          <AvatarIcon className="w-4" />
-          <span className="text-sm">tricedesign.eth</span>
-          <ChevronDownIcon className="w-4" />
-        </div>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-gray-500 animate-fadeIn">    
-        <section className="px-0 py-2 flex gap-x-1">
-          <DropdownMenuLabel>
-            <Button variant="outline" size="md" className="px-4 py-2" onClick={() => handleCopy(walletAddress)}>
-              <span className="mr-1">{walletAddress}</span>
-              <CopyIcon className="w-4" aria-hidden="true" />
-              <span className="sr-only">Copy address</span>
-            </Button>
-          </DropdownMenuLabel>
-        </section>
-        <DropdownMenuSeparator className="bg-gray-100" />
-        <section className="flex flex-col px-2 py-2" aria-labelledby="tokens">
-          <DropdownMenuLabel className="text-xs pl-1 pt-1 font-nunitosans font-semibold uppercase text-zinc-500">DGEN Tokens</DropdownMenuLabel>
-          <DropdownMenuItem className="text-sm flex items-center rounded-md">
-            420,669 DGN
-          </DropdownMenuItem>
-        </section>
-        <DropdownMenuSeparator className="bg-gray-100" />
-        <section className="flex flex-col px-2" aria-labelledby="network">
-          <DropdownMenuLabel className="text-xs pl-1 pt-2 font-nunitosans font-semibold uppercase text-zinc-500">Network</DropdownMenuLabel>
-
-          <DropdownMenuItem className="rounded-md">
-            <NetworkLinksDropdownMenu />
-          </DropdownMenuItem>
-
-        </section>
-        <DropdownMenuSeparator className="bg-gray-100" />
-        <section className="flex flex-col px-2 py-2" aria-labelledby="tokens">
-          <DropdownMenuItem className="text-sm flex items-center gap-x-1 rounded-md">
-            <NavLink to="#" className="text-sm transition-colors">Disconnect</NavLink>
-          </DropdownMenuItem>
-        </section>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-};
-
 
 const Navbar: FC = () => {
   const walletAddress = '0x9876...ABCD'; // Replace with dynamic data as needed
   return (
     <nav className="w-full bg-white h-18 container mx-auto flex items-center justify-between">
       <div className="flex w-full items-center justify-between">
-        
-        {/* Mobile sheet */}
+{/* Mobile sheet */}
         <Sheet>
-          <SheetTrigger asChild className="absolute mx-1 cursor-pointer transition-colors rounded-md">
-            <MenuIcon className="lg:hidden w-8" />
+          <SheetTrigger asChild>
+{/* Toggle menu button mobile only */}
+            <Button variant="ghost" size="icon" className="lg:hidden">
+              <ArrowRightBox className="h-6 w-6" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
           </SheetTrigger>
-          <div className="flex w-full justify-center lg:hidden">
-            <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" />
-          </div>
-          <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white shadow-gray-500">
-            <div className="flex flex-col h-full py-6">
-            
-              <div className="flex flex-col h-full space-y-4 py-6">
-                <div className="flex items-center px-2">
-                  <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" />
-                </div>
-                <NavLink to="#" className="text-sm py-1 px-2 rounded-md transition-colors">
-                  Menu Item
-                </NavLink>
-                <NavLinksDropdownMenu />
-                <div className="w-full mt-auto">
-                  <WalletDropdownMenu walletAddress={walletAddress} />
-                </div>
+          <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white shadow-lg">
+{/* Mobile Navs */}
+            <div className="flex flex-col h-full space-y-4 px-4 py-6">
+              <div className="flex justify-center items-center">
+                <Logo src="src/assets/degen-logo-default.svg" alt="DEGEN Logo" className="h-8 w-auto" />
               </div>
-
-              <div className="mt-auto px-2">
-                <img src="src/assets/degen-logo-default.svg" className="w-20 my-2" alt="DEGEN Logo" />
-                <p className="text-sm">Degen Design System</p>
-                <p className="text-sm text-gray-400">version 1.0.1</p>
+{/* First link*/}
+              <NavbarLink to="#">Menu Item One</NavbarLink> 
+{/* Accordion */}      
+              <Accordion type="single" collapsible>
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>
+                    <TriggerLabel />
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <NavLinks />    
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+{/* Wallet Dropdown */}
+              <div className="w-full mt-auto">
+                <Accordion type="single" collapsible>
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger>
+                      <TriggerLabel label="wallet.ens" />
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <WalletMenuCopyButton walletAddress={walletAddress} /> 
+                      <Separator />
+                      <span className="text-xs font-nunitosans">Degen Tokens</span>
+                      <TokenBalance balance="420,669 DGN" />
+                      <Separator />
+{/* Network Select */}
+                      <span className="text-xs font-nunitosans">Network</span>
+                      <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+                <NavbarLink to="#">Disconnect</NavbarLink>
               </div>
 
             </div>
@@ -198,17 +179,65 @@ const Navbar: FC = () => {
         </Sheet>
 
 
-        {/* Desktop navigation */}
+{/* Desktop navigation */}
+{/* Desktop Navs */}
         <div className="hidden lg:flex w-full justify-between items-center px-4 py-2 bg-white shadow">
           <div className="flex gap-4 items-center">
-            <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" />
-            <NavLink to="#" className="text-sm px-2 py-1 rounded-md hover:bg-zinc-100 transition-colors">
-              Menu Item
-            </NavLink>
-            <NavLinksDropdownMenu />
+            <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" className="h-6 w-auto" />
+{/* First Link */}
+            <NavbarLink to="#">Menu Item One</NavbarLink>
+{/* Dropdown Menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <div className="flex items-center gap-x-1 px-2 py-1 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">
+                  <TriggerLabel />
+                  <ChevronDownIcon className="w-4" />
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="mt-2 bg-white shadow-black animate-fadeIn">
+                <DropdownMenuItem>
+{/* NavLinks Dropdown */}
+                  <NavLinks />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
+{/* Wallet Dropdown */}
           <div className="max-w-[220px]">
-            <WalletDropdownMenu walletAddress={walletAddress} />
+            <DropdownMenu>
+              <DropdownMenuTrigger className="w-full">
+                <div className="flex items-center gap-x-1 px-2 py-2 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">
+                  <AvatarIcon className="w-4" />
+                    <TriggerLabel label="user-ens.eth" />
+                  <ChevronDownIcon className="w-4" />
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black animate-fadeIn">
+                <section className="px-2 py-2 flex gap-x-1">
+                  <DropdownMenuLabel>
+                    <WalletMenuCopyButton walletAddress={walletAddress} />
+                  </DropdownMenuLabel>
+                </section>
+                <DropdownMenuSeparator className="bg-gray-100" />
+                <section className="flex flex-col px-2 py-2" aria-labelledby="tokens">
+                  <span className="text-xs font-nunitosans">Degen Tokens</span>
+                  <DropdownMenuItem className="text-xs flex items-center gap-x-1 rounded-md">
+                    <TokenBalance balance="420,669 DGN" />
+                  </DropdownMenuItem>
+                </section>
+                <DropdownMenuSeparator className="bg-gray-100" />
+                <section className="flex flex-col px-2" aria-labelledby="network">
+                  <span className="text-xs font-nunitosans">Network</span>
+                  <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
+                </section>
+                <DropdownMenuSeparator className="bg-gray-100" />
+                <section className="flex flex-col px-2 py-2" aria-labelledby="tokens">
+                  <DropdownMenuItem className="text-xs flex items-center gap-x-1 rounded-md">
+                    <NavbarLink to="#">Disconnect</NavbarLink>
+                  </DropdownMenuItem>
+                </section>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
