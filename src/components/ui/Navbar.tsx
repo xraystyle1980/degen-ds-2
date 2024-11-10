@@ -1,30 +1,45 @@
 import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Button } from '@/components/ui/button'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
+
+// Icons from pixelarticons
 import CopyIcon from 'pixelarticons/svg/copy.svg?react'
 import AvatarIcon from 'pixelarticons/svg/avatar.svg?react'
 import ChevronDownIcon from 'pixelarticons/svg/chevron-down.svg?react'
 import ArrowRightBox from 'pixelarticons/svg/arrow-right-box.svg?react'
-
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 
 
 interface LogoProps {
   src: string;
   alt: string;
   className?: string; // Add className as an optional prop
-}
+};
+
 interface WalletMenuProps {
   walletAddress: string;
+};
+
+interface NetworkSelectProps {
+  options: { value: string; label: string }[];
+  placeholder?: string;
+  onChange: (value: string) => void;
 }
 
+const networkOptions = [
+  { value: 'Mainnet', label: 'Mainnet' },
+  { value: 'Polygon', label: 'Polygon' },
+  { value: 'Sepolia', label: 'Sepolia' },
+  { value: 'Base', label: 'Base' },
+];
+
+const handleNetworkChange = (value: string) => {
+  console.log(`Selected network: ${value}`);
+};
 
 const Logo: FC<LogoProps> = ({ src, alt }) => (
   <NavLink to="/" className="inline-flex items-center">
@@ -38,50 +53,30 @@ const TriggerLabel: FC<{ label?: string }> = ({ label = "Trigger Label Default" 
   </div>
 );
 
+const TokenBalance: FC<{ balance?: string }> = ({ balance = "failed to load balance" }) => (
+  <div className="text-xs px-2 py-1">
+    <span className="hover:bg-accent rounded-md">{balance}</span>
+  </div>
+);
+
 const NavLinks: FC = () => {
-  const menuItems = [
+  const menuItems: { label: string; route: string }[] = [
     { label: "Menu Item One", route: "#" },
     { label: "Menu Item Two", route: "#" },
     { label: "Menu Item Three", route: "#" },
   ];
   return (
-    <div>
-      {menuItems.map((item, index) => (
-        <div key={index} className="text-xs px-2 py-1">
-          <NavLink to={item.route} className="hover:bg-accent rounded-md">
+    <ul className="flex flex-col">
+      {menuItems.map((item) => (
+        <li key={item.route}>
+          <NavLink to={item.route} className="text-xs px-2 py-1 hover:bg-accent rounded-md">
             {item.label}
           </NavLink>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
-
-
-
-
-const NetworkLinksDropdownMenu: FC = () => {
-  const networkItems = [
-    { label: "Ethereum Mainnet", action: () => switchToNetwork("Ethereum Mainnet") },
-    { label: "Base", action: () => switchToNetwork("Base") },
-    { label: "Polygon", action: () => switchToNetwork("Polygon") },
-    { label: "Sepolia", action: () => switchToNetwork("Sepolia") },
-  ];
-  const switchToNetwork = (networkName: string) => {
-    console.log(`Switching to ${networkName}`);
-  };
-  return (
-    <div>
-      {networkItems.map((network, index) => (
-        <div key={index} className="text-xs flex items-center gap-x-2 px-2 py-1" onClick={network.action}>
-          <span className="hover:bg-accent rounded-md">{network.label}</span>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-
 
 const WalletMenuCopyButton: FC<WalletMenuProps> = ({ walletAddress }) => {
   const AddressCopyButton: FC = () => {
@@ -101,7 +96,28 @@ const WalletMenuCopyButton: FC<WalletMenuProps> = ({ walletAddress }) => {
   );
 };
 
+const NavbarLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => (
+  <NavLink to={to} className="text-xs hover:bg-accent px-2 py-1 rounded-md transition-colors">
+    {children}
+  </NavLink>
+);
 
+const NetworkSelect: FC<NetworkSelectProps> = ({ options, placeholder = 'Select network', onChange }) => {
+  return (
+    <Select onValueChange={onChange}>
+      <SelectTrigger className="w-full rounded-md border border-gray-300 shadow-sm">
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent className="bg-white">
+        {options.map((option) => (
+          <SelectItem key={option.value} value={option.value} className="py-2">
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+};
 
 const Navbar: FC = () => {
   const walletAddress = '0x9876...ABCD'; // Replace with dynamic data as needed
@@ -124,10 +140,8 @@ const Navbar: FC = () => {
                 <Logo src="src/assets/degen-logo-default.svg" alt="DEGEN Logo" className="h-8 w-auto" />
               </div>
 {/* First link*/}
-              <NavLink to="#" className="text-xs font-semibold px-2 py-1 rounded-md hover:bg-accent transition-colors">
-                Menu Item
-              </NavLink>
-{/* Dropdown Menu (make this the accordion) */}      
+              <NavbarLink to="#">Menu Item One</NavbarLink> 
+{/* Accordion */}      
               <Accordion type="single" collapsible>
                 <AccordionItem value="item-1">
                   <AccordionTrigger>
@@ -138,10 +152,26 @@ const Navbar: FC = () => {
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
-              
 {/* Wallet Dropdown */}
               <div className="w-full mt-auto">
-                <WalletMenuCopyButton walletAddress={walletAddress} />
+                <Accordion type="single" collapsible>
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger>
+                      <TriggerLabel label="wallet.ens" />
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <WalletMenuCopyButton walletAddress={walletAddress} /> 
+                      <Separator />
+                      <span className="text-xs font-nunitosans">Degen Tokens</span>
+                      <TokenBalance balance="420,669 DGN" />
+                      <Separator />
+{/* Network Select */}
+                      <span className="text-xs font-nunitosans">Network</span>
+                      <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+                <NavbarLink to="#">Disconnect</NavbarLink>
               </div>
             </div>
           </SheetContent>
@@ -154,20 +184,16 @@ const Navbar: FC = () => {
           <div className="flex gap-4 items-center">
             <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" className="h-6 w-auto" />
 {/* First Link */}
-            <NavLink to="#" className="text-xs hover:bg-accent px-2 py-1 rounded-md transition-colors">
-              Menu Item
-            </NavLink>
+            <NavbarLink to="#">Menu Item One</NavbarLink>
 {/* Dropdown Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <div className="flex items-center gap-x-1 px-2 py-1 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">
-                    <TriggerLabel />
+                  <TriggerLabel />
                   <ChevronDownIcon className="w-4" />
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mt-2 bg-white shadow-black animate-fadeIn">
-                <DropdownMenuLabel className="text-xs">Dropdown Links</DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-gray-100" />
                 <DropdownMenuItem>
 {/* NavLinks Dropdown */}
                   <NavLinks />
@@ -193,37 +219,20 @@ const Navbar: FC = () => {
                 </section>
                 <DropdownMenuSeparator className="bg-gray-100" />
                 <section className="flex flex-col px-2 py-2" aria-labelledby="tokens">
-                  <span id="tokens" className="text-xs font-nunitosans">Degen Tokens</span>
+                  <span className="text-xs font-nunitosans">Degen Tokens</span>
                   <DropdownMenuItem className="text-xs flex items-center gap-x-1 rounded-md">
-                    420,669 DGN
+                    <TokenBalance balance="420,669 DGN" />
                   </DropdownMenuItem>
                 </section>
                 <DropdownMenuSeparator className="bg-gray-100" />
                 <section className="flex flex-col px-2" aria-labelledby="network">
-                  <span id="network" className="text-xs font-nunitosans">Network</span>
-                  <DropdownMenuItem className="rounded-md">
-{/* Network Links Dropdown */}
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-
-                        <div className="flex items-center gap-x-1 px-2 py-1 rounded-md transition-colors hover:bg-accent">
-                          <span id="current-network" className="text-xs">Sepolia</span>
-                          <ChevronDownIcon className="w-4" />
-                        </div>
-
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="mt-2 bg-white shadow-black animate-fadeIn">
-                      <NetworkLinksDropdownMenu />
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </DropdownMenuItem>
+                  <span className="text-xs font-nunitosans">Network</span>
+                  <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
                 </section>
                 <DropdownMenuSeparator className="bg-gray-100" />
                 <section className="flex flex-col px-2 py-2" aria-labelledby="tokens">
                   <DropdownMenuItem className="text-xs flex items-center gap-x-1 rounded-md">
-                    
-                    <NavLink to="#" className="text-xs">Disconnect</NavLink>
-
+                    <NavbarLink to="#">Disconnect</NavbarLink>
                   </DropdownMenuItem>
                 </section>
               </DropdownMenuContent>
@@ -234,8 +243,6 @@ const Navbar: FC = () => {
     </nav>
   );
 };
-
-
 
 
 export default Navbar;
