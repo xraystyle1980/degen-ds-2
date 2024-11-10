@@ -48,13 +48,13 @@ const Logo: FC<LogoProps> = ({ src, alt }) => (
 );
 
 const TriggerLabel: FC<{ label?: string }> = ({ label = "Trigger Label Default" }) => (
-  <div className="text-xs px-2 py-1">
+  <div className="px-2 py-1">
     <span className="hover:bg-accent rounded-md">{label}</span>
   </div>
 );
 
 const TokenBalance: FC<{ balance?: string }> = ({ balance = "failed to load balance" }) => (
-  <div className="text-xs px-2 py-1">
+  <div className="px-2 py-1">
     <span className="hover:bg-accent rounded-md">{balance}</span>
   </div>
 );
@@ -66,10 +66,10 @@ const NavLinks: FC = () => {
     { label: "Menu Item Three", route: "#" },
   ];
   return (
-    <ul className="flex flex-col">
+    <ul className="flex flex-col gap-1">
       {menuItems.map((item) => (
         <li key={item.route}>
-          <NavLink to={item.route} className="text-xs px-2 py-1 hover:bg-accent rounded-md">
+          <NavLink to={item.route} className="rounded-md hover:bg-accent">
             {item.label}
           </NavLink>
         </li>
@@ -97,7 +97,7 @@ const WalletMenuCopyButton: FC<WalletMenuProps> = ({ walletAddress }) => {
 };
 
 const NavbarLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => (
-  <NavLink to={to} className="text-xs hover:bg-accent px-2 py-1 rounded-md transition-colors">
+  <NavLink to={to} className="hover:bg-red-300 rounded-md transition-colors">
     {children}
   </NavLink>
 );
@@ -141,25 +141,13 @@ const Navbar: FC = () => {
               </div>
 {/* First link*/}
               <NavbarLink to="#">Menu Item One</NavbarLink> 
-{/* Accordion */}      
-              <Accordion type="single" collapsible>
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>
-                    <TriggerLabel />
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <NavLinks />    
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+{/* NavLinks Accordion */}      
+             
+                    <NavLinks /> 
 {/* Wallet Dropdown */}
-              <div className="w-full mt-auto">
-                <Accordion type="single" collapsible>
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger>
+            
                       <TriggerLabel label="wallet.ens" />
-                    </AccordionTrigger>
-                    <AccordionContent>
+                 
                       <WalletMenuCopyButton walletAddress={walletAddress} /> 
                       <Separator />
                       <span className="text-xs font-nunitosans">Degen Tokens</span>
@@ -168,13 +156,9 @@ const Navbar: FC = () => {
 {/* Network Select */}
                       <span className="text-xs font-nunitosans">Network</span>
                       <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-                <NavbarLink to="#">Disconnect</NavbarLink>
+                   
+                
               </div>
-
-            </div>
           </SheetContent>
         </Sheet>
 
@@ -189,13 +173,13 @@ const Navbar: FC = () => {
 {/* Dropdown Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <div className="flex items-center gap-x-1 px-2 py-1 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">
-                  <TriggerLabel />
+                <div className="flex items-center gap-x-1 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">
+                  <TriggerLabel label='Desktop' />
                   <ChevronDownIcon className="w-4" />
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mt-2 bg-white shadow-black animate-fadeIn">
-                <DropdownMenuItem>
+                <DropdownMenuItem className='focus:bg-white'>
 {/* NavLinks Dropdown */}
                   <NavLinks />
                 </DropdownMenuItem>
@@ -213,29 +197,45 @@ const Navbar: FC = () => {
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black animate-fadeIn">
+                
+                
                 <section className="px-2 py-2 flex gap-x-1">
                   <DropdownMenuLabel>
                     <WalletMenuCopyButton walletAddress={walletAddress} />
                   </DropdownMenuLabel>
                 </section>
+
+
                 <DropdownMenuSeparator className="bg-gray-100" />
+
+
                 <section className="flex flex-col px-2 py-2" aria-labelledby="tokens">
                   <span className="text-xs font-nunitosans">Degen Tokens</span>
-                  <DropdownMenuItem className="text-xs flex items-center gap-x-1 rounded-md">
+                  <DropdownMenuItem className="flex items-center gap-x-1 rounded-md">
                     <TokenBalance balance="420,669 DGN" />
                   </DropdownMenuItem>
                 </section>
+
+
                 <DropdownMenuSeparator className="bg-gray-100" />
+
+
                 <section className="flex flex-col px-2" aria-labelledby="network">
                   <span className="text-xs font-nunitosans">Network</span>
                   <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
                 </section>
+
+
                 <DropdownMenuSeparator className="bg-gray-100" />
+
+
                 <section className="flex flex-col px-2 py-2" aria-labelledby="tokens">
-                  <DropdownMenuItem className="text-xs flex items-center gap-x-1 rounded-md">
+                  <DropdownMenuItem>
                     <NavbarLink to="#">Disconnect</NavbarLink>
                   </DropdownMenuItem>
                 </section>
+
+
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
