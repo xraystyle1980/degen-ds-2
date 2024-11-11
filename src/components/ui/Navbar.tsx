@@ -48,7 +48,7 @@ const Logo: FC<LogoProps> = ({ src, alt }) => (
 );
 
 const TokenBalance: FC<{ balance?: string }> = ({ balance = "failed to load balance" }) => (
-    <span className="text-md">{balance}</span>
+    <span>{balance}</span>
 );
 
 const NavLinks: FC = () => {
@@ -73,7 +73,7 @@ const NavLinks: FC = () => {
 const WalletMenuCopyButton: FC<WalletMenuProps> = ({ walletAddress }) => {
   const AddressCopyButton: FC = () => {
     return (
-      <Button variant="outline" className='py-6' onClick={() => handleCopy(walletAddress)}>
+      <Button variant="default" className='border-none shadow-none rounded-md w-full' onClick={() => handleCopy(walletAddress)}>
         <span className="mr-1">{walletAddress}</span>
         <CopyIcon className="w-4" aria-hidden="true" />
         <span className="sr-only">Copy address</span>
@@ -189,14 +189,13 @@ const Navbar: FC = () => {
 
 {/* Product */}
             <DropdownMenu>
-              <DropdownMenuTrigger className='degen-nav'>
-                {/* <div className='flex'>Product<ChevronDownIcon className="w-4" /></div> */}
+              <DropdownMenuTrigger>
                 <div className="degen-nav-wrapper degen-nav">
                   <span>Product</span>
                   <ChevronDownIcon className="w-4" />
                 </div>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="mt-2 bg-white shadow-black animate-fadeIn">
+              <DropdownMenuContent className="mt-2 rounded-lg bg-white shadow-black animate-fadeIn">
                 <DropdownMenuItem className='focus:bg-white'>
                   <NavLinks />
                 </DropdownMenuItem>
@@ -218,29 +217,25 @@ const Navbar: FC = () => {
                   </div>
                 </section>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black animate-fadeIn">
-                <section className="px-2 py-2 flex gap-x-1" aria-labelledby="Wallet Address Copy">
-                  <DropdownMenuLabel>
-                    <WalletMenuCopyButton walletAddress={walletAddress} />
-                  </DropdownMenuLabel>
+              <DropdownMenuContent className="mt-2 rounded-lg bg-white border-none shadow-black animate-fadeIn">
+                <section className="px-2 p-2 flex gap-x-1" aria-labelledby="Wallet Address Copy">
+                  <WalletMenuCopyButton walletAddress={walletAddress} />
                 </section>
-                <DropdownMenuSeparator className="bg-gray-100" />
-                <section className="flex flex-col px-2 py-2" aria-labelledby="Token Balance">
-                  <span className="text-xs font-nunitosans">Degen Tokens</span>
-                  <DropdownMenuItem className="flex items-center gap-x-1 rounded-md">
-                    <TokenBalance balance="420,669 DGN" />
-                  </DropdownMenuItem>
+                <section className="flex flex-row px-2 pb-2 justify-center" aria-labelledby="Token Balance">
+                  <div className="text-xs">
+                    Balance <TokenBalance balance="420,669 DGN" />
+                  </div>
                 </section>
-                <DropdownMenuSeparator className="bg-gray-100" />
-                <section className="flex flex-col px-2" aria-labelledby="Select Network">
+                <DropdownMenuSeparator className="bg-gray-200" />
+                <section className="flex flex-col px-2 py-3" aria-labelledby="Select Network">
                   <span className="text-xs font-nunitosans">Network</span>
                   <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
                 </section>
-                <DropdownMenuSeparator className="bg-gray-100" />
+                <DropdownMenuSeparator className="bg-gray-200" />
                 <section className="flex flex-col px-2 py-2" aria-labelledby="Disconnect">
-                  <DropdownMenuItem>
-                    <NavbarLink to="#">Disconnect</NavbarLink>
-                  </DropdownMenuItem>
+                  <Button variant="ghost" className='justify-center border-none shadow-none rounded-md w-full'>
+                    Disconnect<span className="sr-only">Disconnect</span>
+                  </Button>
                 </section>
               </DropdownMenuContent>
             </DropdownMenu>
