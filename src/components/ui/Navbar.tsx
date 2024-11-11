@@ -48,14 +48,14 @@ const Logo: FC<LogoProps> = ({ src, alt }) => (
 );
 
 const TriggerLabel: FC<{ label?: string }> = ({ label = "Trigger Label Default" }) => (
-  <div className="px-2 py-1">
-    <span className="hover:bg-accent rounded-md">{label}</span>
+  <div className="">
+    <span className="">{label}</span>
   </div>
 );
 
 const TokenBalance: FC<{ balance?: string }> = ({ balance = "failed to load balance" }) => (
-  <div className="px-2 py-1">
-    <span className="hover:bg-accent rounded-md">{balance}</span>
+  <div className="">
+    <span className="">{balance}</span>
   </div>
 );
 
@@ -69,7 +69,7 @@ const NavLinks: FC = () => {
     <ul className="flex flex-col gap-1">
       {menuItems.map((item) => (
         <li key={item.route}>
-          <NavLink to={item.route} className="rounded-md hover:bg-accent">
+          <NavLink to={item.route}>
             {item.label}
           </NavLink>
         </li>
@@ -97,7 +97,7 @@ const WalletMenuCopyButton: FC<WalletMenuProps> = ({ walletAddress }) => {
 };
 
 const NavbarLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => (
-  <NavLink to={to} className="hover:bg-red-300 rounded-md transition-colors">
+  <NavLink to={to}>
     {children}
   </NavLink>
 );
@@ -124,46 +124,74 @@ const Navbar: FC = () => {
   return (
     <nav className="w-full bg-white h-18 container mx-auto flex items-center justify-between">
       <div className="flex w-full items-center justify-between">
-{/* Mobile sheet */}
         <Sheet>
           <SheetTrigger asChild>
-{/* Toggle menu button mobile only */}
             <Button variant="ghost" size="icon" className="lg:hidden">
               <ArrowRightBox className="h-6 w-6" />
               <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white shadow-lg">
-{/* Mobile Navs */}
-            <div className="flex flex-col h-full space-y-4 px-4 py-6">
-              <div className="flex justify-center items-center">
+            <div className="flex flex-col h-full space-y-4 px-2 py-6">
+              <div className="flex items-center">
                 <Logo src="src/assets/degen-logo-default.svg" alt="DEGEN Logo" className="h-8 w-auto" />
               </div>
-{/* First link*/}
+
+              <Separator className="bg-gray-200" />
+
               <NavbarLink to="#">Menu Item One</NavbarLink> 
-{/* NavLinks Accordion */}      
-             
+
+              <Separator className="bg-gray-200" />
+
+              <Accordion type="single" collapsible>
+                <AccordionItem value="item-1">
+                  <AccordionTrigger><TriggerLabel label="Mobile Accordion" /></AccordionTrigger>
+                  <AccordionContent>
                     <NavLinks /> 
-{/* Wallet Dropdown */}
-            
-                      <TriggerLabel label="wallet.ens" />
-                 
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>
+                    <TriggerLabel label="wallet.ens" />
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    
+                    <section className="flex flex-col py-4" aria-labelledby="Wallet Address Copy">
                       <WalletMenuCopyButton walletAddress={walletAddress} /> 
-                      <Separator />
+                    </section>
+
+                    <Separator className="bg-gray-200" />
+
+                    <section className="flex flex-col py-4" aria-labelledby="Token Balance">
                       <span className="text-xs font-nunitosans">Degen Tokens</span>
                       <TokenBalance balance="420,669 DGN" />
-                      <Separator />
-{/* Network Select */}
+                    </section>
+
+                    <Separator className="bg-gray-200" />
+
+                    <section className="flex flex-col py-4" aria-labelledby="Select Network">
                       <span className="text-xs font-nunitosans">Network</span>
                       <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
-                   
-                
-              </div>
+                    </section>
+
+                    <Separator className="bg-gray-200" />
+
+                    <section className="flex flex-col py-4" aria-labelledby="Disconnect">
+                      <NavbarLink to="#">Disconnect</NavbarLink>
+                    </section>
+
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
           </SheetContent>
         </Sheet>
 
 
-{/* Desktop navigation */}
+
+
 {/* Desktop Navs */}
         <div className="hidden lg:flex w-full justify-between items-center px-4 py-2 bg-white shadow">
           <div className="flex gap-4 items-center">
@@ -173,8 +201,8 @@ const Navbar: FC = () => {
 {/* Dropdown Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <div className="flex items-center gap-x-1 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">
-                  <TriggerLabel label='Desktop' />
+                <div className="flex items-center gap-x-1 rounded-md transition-colors duration-200 ease-in-out">
+                  <TriggerLabel label='Desktop Dropdown Menu' />
                   <ChevronDownIcon className="w-4" />
                 </div>
               </DropdownMenuTrigger>
@@ -187,7 +215,7 @@ const Navbar: FC = () => {
             </DropdownMenu>
           </div>
 {/* Wallet Dropdown */}
-          <div className="max-w-[220px]">
+
             <DropdownMenu>
               <DropdownMenuTrigger className="w-full">
                 <div className="flex items-center gap-x-1 px-2 py-2 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">
@@ -199,7 +227,7 @@ const Navbar: FC = () => {
               <DropdownMenuContent className="mt-2 bg-white rounded-none border-none shadow-black animate-fadeIn">
                 
                 
-                <section className="px-2 py-2 flex gap-x-1">
+                <section className="px-2 py-2 flex gap-x-1" aria-labelledby="Wallet Address Copy">
                   <DropdownMenuLabel>
                     <WalletMenuCopyButton walletAddress={walletAddress} />
                   </DropdownMenuLabel>
@@ -209,7 +237,7 @@ const Navbar: FC = () => {
                 <DropdownMenuSeparator className="bg-gray-100" />
 
 
-                <section className="flex flex-col px-2 py-2" aria-labelledby="tokens">
+                <section className="flex flex-col px-2 py-2" aria-labelledby="Token Balance">
                   <span className="text-xs font-nunitosans">Degen Tokens</span>
                   <DropdownMenuItem className="flex items-center gap-x-1 rounded-md">
                     <TokenBalance balance="420,669 DGN" />
@@ -220,7 +248,7 @@ const Navbar: FC = () => {
                 <DropdownMenuSeparator className="bg-gray-100" />
 
 
-                <section className="flex flex-col px-2" aria-labelledby="network">
+                <section className="flex flex-col px-2" aria-labelledby="Select Network">
                   <span className="text-xs font-nunitosans">Network</span>
                   <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
                 </section>
@@ -229,7 +257,7 @@ const Navbar: FC = () => {
                 <DropdownMenuSeparator className="bg-gray-100" />
 
 
-                <section className="flex flex-col px-2 py-2" aria-labelledby="tokens">
+                <section className="flex flex-col px-2 py-2" aria-labelledby="Disconnect">
                   <DropdownMenuItem>
                     <NavbarLink to="#">Disconnect</NavbarLink>
                   </DropdownMenuItem>
@@ -238,7 +266,7 @@ const Navbar: FC = () => {
 
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
+
         </div>
       </div>
     </nav>
