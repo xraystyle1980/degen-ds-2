@@ -48,9 +48,7 @@ const Logo: FC<LogoProps> = ({ src, alt }) => (
 );
 
 const TokenBalance: FC<{ balance?: string }> = ({ balance = "failed to load balance" }) => (
-  <div className="">
-    <span className="">{balance}</span>
-  </div>
+    <span className="text-lg">{balance}</span>
 );
 
 const NavLinks: FC = () => {
@@ -63,7 +61,7 @@ const NavLinks: FC = () => {
     <ul className="flex flex-col gap-1">
       {menuItems.map((item) => (
         <li key={item.route}>
-          <NavLink to={item.route}>
+          <NavLink className="text-lg" to={item.route}>
             {item.label}
           </NavLink>
         </li>
@@ -125,57 +123,49 @@ const Navbar: FC = () => {
               <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white shadow-lg">
+          <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white shadow-lg p-1">
             <div className="flex flex-col h-full space-y-4 px-2 py-6">
               <div className="flex items-center">
                 <Logo src="src/assets/degen-logo-default.svg" alt="DEGEN Logo" className="h-8 w-auto" />
               </div>
-
               <Separator className="bg-gray-200" />
-
-              <NavbarLink to="#">Menu Item One</NavbarLink> 
-
-              <Separator className="bg-gray-200" />
-
-              <Accordion type="single" collapsible>
+              <div className='rounded-lg px-4 py-4 border-neutral-950 border-2 border-solid'>
+                <NavbarLink to="#">Menu Item One</NavbarLink> 
+              </div>
+              {/* <Separator className="bg-gray-200" /> */}
+              <Accordion className='rounded-lg px-4 border-neutral-950 border-2 border-solid' type="single" collapsible>
                 <AccordionItem value="item-1">
-                  <AccordionTrigger>Mobile Accordion</AccordionTrigger>
+                  <AccordionTrigger className='text-lg'>Mobile Accordion</AccordionTrigger>
                   <AccordionContent>
                     <NavLinks /> 
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
-              <Accordion type="single" collapsible>
+              <Accordion className='rounded-lg px-0 border-neutral-950 border-2 border-solid' type="single" collapsible>
+
                 <AccordionItem value="item-1">
-                  <AccordionTrigger>user-wallet.ens</AccordionTrigger>
+                  <AccordionTrigger className='text-lg px-4'>user-wallet.ens</AccordionTrigger>
                   <AccordionContent>
-                    
-                    <section className="flex flex-col py-4" aria-labelledby="Wallet Address Copy">
+                    <section className="flex flex-col px-4 py-4" aria-labelledby="Wallet Address Copy">
                       <WalletMenuCopyButton walletAddress={walletAddress} /> 
                     </section>
-
-                    <Separator className="bg-gray-200" />
-
-                    <section className="flex flex-col py-4" aria-labelledby="Token Balance">
+                    <Separator className="bg-black" />
+                    <section className="flex flex-col px-4 py-4" aria-labelledby="Token Balance">
                       <span className="text-xs font-nunitosans">Degen Tokens</span>
                       <TokenBalance balance="420,669 DGN" />
                     </section>
-
-                    <Separator className="bg-gray-200" />
-
-                    <section className="flex flex-col py-4" aria-labelledby="Select Network">
+                    <Separator className="bg-black" />
+                    <section className="flex flex-col px-4 py-4" aria-labelledby="Select Network">
                       <span className="text-xs font-nunitosans">Network</span>
                       <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
                     </section>
-
-                    <Separator className="bg-gray-200" />
-
-                    <section className="flex flex-col py-4" aria-labelledby="Disconnect">
+                    <Separator className="bg-black" />
+                    <section className="flex flex-col px-4 pt-4" aria-labelledby="Disconnect">
                       <NavbarLink to="#">Disconnect</NavbarLink>
                     </section>
-
                   </AccordionContent>
                 </AccordionItem>
+                
               </Accordion>
             </div>
           </SheetContent>
