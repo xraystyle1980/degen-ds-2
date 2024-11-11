@@ -11,7 +11,7 @@ import { Separator } from '@/components/ui/separator'
 import CopyIcon from 'pixelarticons/svg/copy.svg?react'
 import AvatarIcon from 'pixelarticons/svg/avatar.svg?react'
 import ChevronDownIcon from 'pixelarticons/svg/chevron-down.svg?react'
-import ArrowRightBox from 'pixelarticons/svg/arrow-right-box.svg?react'
+import Menu from 'pixelarticons/svg/menu.svg?react'
 
 
 interface LogoProps {
@@ -89,7 +89,7 @@ const WalletMenuCopyButton: FC<WalletMenuProps> = ({ walletAddress }) => {
 };
 
 const NavbarLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => (
-  <NavLink className="text-sm" to={to}>
+  <NavLink className="degen-nav" to={to}>
     {children}
   </NavLink>
 );
@@ -114,22 +114,23 @@ const NetworkSelect: FC<NetworkSelectProps> = ({ options, placeholder = 'Select 
 const Navbar: FC = () => {
   const walletAddress = '0x9876...ABCD'; // Replace with dynamic data as needed
   return (
-    <nav className="w-full bg-white h-18 container mx-auto flex items-center justify-between">
+    <nav className="w-full container mx-auto flex items-center justify-between px-2 bg-white rounded-xl">
       <div className="flex w-full items-center justify-between">
 
 {/* Mobile */}
         <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="lg:hidden">
-              <ArrowRightBox className="h-6 w-6" />
+          <SheetTrigger asChild className='lg:hidden'>
+            <div className='p-1 m-2 hover:bg-gray-100 transition-colors rounded-md cursor-pointer'>
+              <Menu className="w-8 lg:hidden" />
               <span className="sr-only">Toggle menu</span>
-            </Button>
+            </div>
           </SheetTrigger>
           <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white shadow-lg p-1">
             <div className="flex flex-col h-full space-y-4 px-2 py-6">
               <div className="flex items-center">
                 <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" className="h-2" />
               </div>
+              
               <div className='rounded-lg px-4 py-4 border-neutral-950 border-2 border-solid'>
                 <NavbarLink to="#">About</NavbarLink> 
               </div>
@@ -174,23 +175,25 @@ const Navbar: FC = () => {
 
 
 {/* Desktop Navs */}
-        <div className="hidden lg:flex w-full items-center p-2 bg-red-900 shadow">
-          <div className="flex gap-4 items-center bg-yellow-400 w-full h-14">
+        <div className="hidden lg:flex w-full items-center p-2">
+          <div className="flex gap-4 items-center w-full h-14">
             <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" className="h-6 w-auto" />
 {/* About */}
-            <div className='bg-yellow-300 flex items-center gap-x-1 px-2 py-2 rounded-md'>
+            <div className='degen-nav-wrapper'>
               <NavbarLink to="#">About</NavbarLink> 
             </div>
 {/* Developers */}
-            <div className='bg-yellow-300 flex items-center gap-x-1 px-2 py-2 rounded-md'>
+            <div className='degen-nav-wrapper'>
               <NavbarLink to="#">Developers</NavbarLink> 
             </div>
 
 {/* Product */}
             <DropdownMenu>
-              <DropdownMenuTrigger className='flex'>
-                <div className='bg-yellow-300 flex items-center gap-x-1 px-2 py-2 rounded-md'>
-                  <span className='whitespace-nowrap text-sm'>Marketplace</span> <ChevronDownIcon className="w-4" />
+              <DropdownMenuTrigger className='degen-nav'>
+                {/* <div className='flex'>Product<ChevronDownIcon className="w-4" /></div> */}
+                <div className="degen-nav-wrapper degen-nav">
+                  <span>Product</span>
+                  <ChevronDownIcon className="w-4" />
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mt-2 bg-white shadow-black animate-fadeIn">
@@ -199,18 +202,18 @@ const Navbar: FC = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            {/* Developers */}
-            <div className='bg-yellow-300 flex items-center gap-x-1 px-2 py-2 rounded-md'>
-              <NavbarLink to="#">Developers</NavbarLink> 
+{/* Contact */}
+            <div className='degen-nav-wrapper'>
+              <NavbarLink to="#">Contact</NavbarLink> 
             </div>
           </div>
 {/* Wallet */}
             <DropdownMenu>
               <DropdownMenuTrigger className="">
-                <section className="flex bg-yellow-500 h-14 py-2" aria-labelledby="User Wallet Menu">
-                  <div className="bg-yellow-300 flex items-center gap-x-1 px-2 py-2 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">
+                <section className="" aria-labelledby="User Wallet Menu">
+                  <div className="degen-nav-wrapper degen-nav">
                     <AvatarIcon className="w-4" />
-                    <span className='whitespace-nowrap text-sm'>user-wallet.ens</span>
+                    <span>user-wallet.ens</span>
                     <ChevronDownIcon className="w-4" />
                   </div>
                 </section>

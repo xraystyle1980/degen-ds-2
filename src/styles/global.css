@@ -51,14 +51,18 @@
   /* Icon Wrapper */
   .icon-wrapper {
     @apply flex items-center justify-center bg-gray-100 rounded-full;
-    width: 3rem; 
-    height: 3rem;
   }
   .component-zone {
     @apply flex flex-col h-[80vh] bg-Neutral-+3 p-8 border-2 border-dashed border-Magenta-0;
   }
   .SVG-current-color {
     @apply fill-current;
+  }
+  .degen-nav-wrapper {
+    @apply bg-white flex items-center gap-x-1 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent;
+  }
+  .degen-nav {
+    @apply whitespace-nowrap text-sm px-2 py-2;
   }
 }
 
