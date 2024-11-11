@@ -47,12 +47,6 @@ const Logo: FC<LogoProps> = ({ src, alt }) => (
   </NavLink>
 );
 
-const TriggerLabel: FC<{ label?: string }> = ({ label = "Trigger Label Default" }) => (
-  <div className="">
-    <span className="">{label}</span>
-  </div>
-);
-
 const TokenBalance: FC<{ balance?: string }> = ({ balance = "failed to load balance" }) => (
   <div className="">
     <span className="">{balance}</span>
@@ -97,7 +91,7 @@ const WalletMenuCopyButton: FC<WalletMenuProps> = ({ walletAddress }) => {
 };
 
 const NavbarLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => (
-  <NavLink to={to}>
+  <NavLink className="text-lg" to={to}>
     {children}
   </NavLink>
 );
@@ -145,7 +139,7 @@ const Navbar: FC = () => {
 
               <Accordion type="single" collapsible>
                 <AccordionItem value="item-1">
-                  <AccordionTrigger><TriggerLabel label="Mobile Accordion" /></AccordionTrigger>
+                  <AccordionTrigger>Mobile Accordion</AccordionTrigger>
                   <AccordionContent>
                     <NavLinks /> 
                   </AccordionContent>
@@ -153,9 +147,7 @@ const Navbar: FC = () => {
               </Accordion>
               <Accordion type="single" collapsible>
                 <AccordionItem value="item-1">
-                  <AccordionTrigger>
-                    <TriggerLabel label="wallet.ens" />
-                  </AccordionTrigger>
+                  <AccordionTrigger>user-wallet.ens</AccordionTrigger>
                   <AccordionContent>
                     
                     <section className="flex flex-col py-4" aria-labelledby="Wallet Address Copy">
@@ -202,8 +194,7 @@ const Navbar: FC = () => {
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <div className="flex items-center gap-x-1 rounded-md transition-colors duration-200 ease-in-out">
-                  <TriggerLabel label='Desktop Dropdown Menu' />
-                  <ChevronDownIcon className="w-4" />
+                  <span>Desktop Dropdown Menu</span> <ChevronDownIcon className="w-4" />
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mt-2 bg-white shadow-black animate-fadeIn">
@@ -220,7 +211,7 @@ const Navbar: FC = () => {
               <DropdownMenuTrigger className="w-full">
                 <div className="flex items-center gap-x-1 px-2 py-2 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent">
                   <AvatarIcon className="w-4" />
-                    <TriggerLabel label="user-ens.eth" />
+                  <span>user-wallet.ens</span>
                   <ChevronDownIcon className="w-4" />
                 </div>
               </DropdownMenuTrigger>
