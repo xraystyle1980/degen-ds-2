@@ -36,11 +36,6 @@ const networkOptions = [
 const handleNetworkChange = (value: string) => {
   console.log(`Selected network: ${value}`);
 };
-// const Logo: FC<LogoProps> = ({ src, alt }) => (
-//   <NavLink to="/" className="inline-flex items-center">
-//     <img src={src} alt={alt} />
-//   </NavLink>
-// );
 const TokenBalance: FC<{ balance?: string }> = ({ balance = "failed to load balance" }) => (
     <span>{balance}</span>
 );
