@@ -19,39 +19,32 @@ interface LogoProps {
   alt: string;
   className?: string; // Add className as an optional prop
 };
-
 interface WalletMenuProps {
   walletAddress: string;
 };
-
 interface NetworkSelectProps {
   options: { value: string; label: string }[];
   placeholder?: string;
   onChange: (value: string) => void;
 }
-
 const networkOptions = [
   { value: 'Mainnet', label: 'Mainnet' },
   { value: 'Polygon', label: 'Polygon' },
   { value: 'Sepolia', label: 'Sepolia' },
   { value: 'Base', label: 'Base' },
 ];
-
 const handleNetworkChange = (value: string) => {
   console.log(`Selected network: ${value}`);
 };
-
 const Logo: FC<LogoProps> = ({ src, alt }) => (
   <NavLink to="/" className="inline-flex items-center">
     <img src={src} className="max-w-[120px]" alt={alt} />
   </NavLink>
 );
-
 const TokenBalance: FC<{ balance?: string }> = ({ balance = "failed to load balance" }) => (
     <span>{balance}</span>
 );
-
-const NavLinks: FC = () => {
+const ProductLinks: FC = () => {
   const menuItems: { label: string; route: string }[] = [
     { label: "Menu Item One", route: "#" },
     { label: "Menu Item Two", route: "#" },
@@ -60,16 +53,15 @@ const NavLinks: FC = () => {
   return (
     <ul className="flex flex-col gap-1">
       {menuItems.map((item) => (
-        <li key={item.route}>
-          <NavLink className="text-sm" to={item.route}>
+        <li key={item.route} className='degen-nav-wrapper'>
+          <NavbarLink to={item.route}>
             {item.label}
-          </NavLink>
+          </NavbarLink>
         </li>
       ))}
     </ul>
   );
 };
-
 const WalletMenuCopyButton: FC<WalletMenuProps> = ({ walletAddress }) => {
   const AddressCopyButton: FC = () => {
     return (
@@ -87,13 +79,11 @@ const WalletMenuCopyButton: FC<WalletMenuProps> = ({ walletAddress }) => {
     <AddressCopyButton />
   );
 };
-
 const NavbarLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => (
   <NavLink className="degen-nav" to={to}>
     {children}
   </NavLink>
 );
-
 const NetworkSelect: FC<NetworkSelectProps> = ({ options, placeholder = 'Select network', onChange }) => {
   return (
     <Select onValueChange={onChange}>
@@ -111,6 +101,7 @@ const NetworkSelect: FC<NetworkSelectProps> = ({ options, placeholder = 'Select 
   );
 };
 
+
 const Navbar: FC = () => {
   const walletAddress = '0x9876...ABCD'; // Replace with dynamic data as needed
   return (
@@ -119,56 +110,74 @@ const Navbar: FC = () => {
 
 {/* Mobile */}
         <Sheet>
+
           <SheetTrigger asChild className='lg:hidden'>
             <div className='p-1 m-2 hover:bg-gray-100 transition-colors rounded-md cursor-pointer'>
               <Menu className="w-8 lg:hidden" />
               <span className="sr-only">Toggle menu</span>
             </div>
           </SheetTrigger>
+
           <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white shadow-lg p-1">
             <div className="flex flex-col h-full space-y-4 px-2 py-6">
               <div className="flex items-center">
-                <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" className="h-2" />
+                <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" className="h-full" />
               </div>
               
-              <div className='rounded-lg px-4 py-4 border-neutral-950 border-2 border-solid'>
-                <NavbarLink to="#">About</NavbarLink> 
+              <div className="flex flex-col h-full bg-green-200 justify-center">
+                
+                <div className='bg-blue-200 border-black border-b py-4 my-2'>
+                  <NavbarLink to="#">About</NavbarLink> 
+                </div>
+
+                <div className='bg-blue-200 border-black border-b py-4 my-2'>
+                  <NavbarLink to="#">Developers</NavbarLink> 
+                </div>
+
+                <Accordion className='bg-blue-200 py-4 my-2' type="single" collapsible>
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger className='bg-blue-600'>Product</AccordionTrigger>
+                    <AccordionContent>
+                      <ProductLinks /> 
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+
+                <div className='bg-blue-200 border-black border-b py-4 my-2'>
+                  <NavbarLink to="#">Contact</NavbarLink> 
+                </div>
+
               </div>
-              <div className='rounded-lg px-4 py-4 border-neutral-950 border-2 border-solid'>
-                <NavbarLink to="#">Contact</NavbarLink> 
-              </div>
-              <Accordion className='rounded-lg px-4 border-neutral-950 border-2 border-solid' type="single" collapsible>
-                <AccordionItem value="item-1">
-                  <AccordionTrigger className='text-md'>Mobile Accordion</AccordionTrigger>
-                  <AccordionContent>
-                    <NavLinks /> 
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-              <Accordion className='rounded-lg px-0 border-neutral-950 border-2 border-solid' type="single" collapsible>
-                <AccordionItem value="item-1">
-                  <AccordionTrigger className='text-md px-4'>user-wallet.ens</AccordionTrigger>
-                  <AccordionContent>
-                    <section className="flex flex-col px-4 py-4" aria-labelledby="Wallet Address Copy">
-                      <WalletMenuCopyButton walletAddress={walletAddress} /> 
-                    </section>
-                    <Separator className="bg-black" />
-                    <section className="flex flex-col px-4 py-4" aria-labelledby="Token Balance">
-                      <span className="text-xs font-nunitosans py-2 text-gray-500 uppercase">Degen Tokens</span>
-                      <TokenBalance balance="420,669 DGN" />
-                    </section>
-                    <Separator className="bg-black" />
-                    <section className="flex flex-col px-4 py-4" aria-labelledby="Select Network">
-                      <span className="text-xs font-nunitosans py-2 text-gray-500 uppercase">Network</span>
-                      <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
-                    </section>
-                    <Separator className="bg-black" />
-                    <section className="flex flex-col px-4 pt-4" aria-labelledby="Disconnect">
-                      <NavbarLink to="#">Disconnect</NavbarLink>
-                    </section>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+
+
+              <section className="" aria-labelledby="User Wallet Menu">
+                <div className="degen-nav-wrapper degen-nav">
+                  <AvatarIcon className="w-4" />
+                  <span>user-wallet.ens</span>
+                  <ChevronDownIcon className="w-4" />
+                </div>
+                <section className="px-2 p-2 flex gap-x-1" aria-labelledby="Wallet Address Copy">
+                  <WalletMenuCopyButton walletAddress={walletAddress} />
+                </section>
+                <section className="flex flex-row px-2 pb-2 justify-center" aria-labelledby="Token Balance">
+                  <div className="text-xs">
+                    Balance <TokenBalance balance="420,669 DGN" />
+                  </div>
+                </section>
+                {/* <Separator className="bg-gray-200" /> */}
+                <section className="flex flex-col px-2 py-3" aria-labelledby="Select Network">
+                  <span className="text-xs font-nunitosans">Network</span>
+                  <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
+                </section>
+                {/* <Separator className="bg-gray-200" /> */}
+                <section className="flex flex-col px-2 py-2" aria-labelledby="Disconnect">
+                  <Button variant="ghost" className='justify-center border-none shadow-none rounded-md w-full'>
+                    Disconnect<span className="sr-only">Disconnect</span>
+                  </Button>
+                </section>
+              </section>
+
+
             </div>
           </SheetContent>
         </Sheet>
@@ -186,7 +195,6 @@ const Navbar: FC = () => {
             <div className='degen-nav-wrapper'>
               <NavbarLink to="#">Developers</NavbarLink> 
             </div>
-
 {/* Product */}
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -197,7 +205,7 @@ const Navbar: FC = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mt-2 rounded-lg bg-white shadow-black animate-fadeIn">
                 <DropdownMenuItem className='focus:bg-white'>
-                  <NavLinks />
+                  <ProductLinks />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
