@@ -124,26 +124,26 @@ const Navbar: FC = () => {
                 <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" className="h-full" />
               </div>
               
-              <div className="flex flex-col h-full bg-green-200 justify-center">
+              <div className="flex flex-col h-full justify-center">
                 
-                <div className='bg-blue-200 border-black border-b py-4 my-2'>
+                <div className='border-black border-b py-4 my-2'>
                   <NavbarLink to="#">About</NavbarLink> 
                 </div>
 
-                <div className='bg-blue-200 border-black border-b py-4 my-2'>
+                <div className='border-black border-b py-4 my-2'>
                   <NavbarLink to="#">Developers</NavbarLink> 
                 </div>
 
-                <Accordion className='bg-blue-200 py-4 my-2' type="single" collapsible>
+                <Accordion className='pb-0 my-2 border-black border-b' type="single" collapsible>
                   <AccordionItem value="item-1">
-                    <AccordionTrigger className='bg-blue-600'>Product</AccordionTrigger>
+                    <AccordionTrigger className=''>Product</AccordionTrigger>
                     <AccordionContent>
                       <ProductLinks /> 
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
 
-                <div className='bg-blue-200 border-black border-b py-4 my-2'>
+                <div className='border-black border-b py-4 my-2'>
                   <NavbarLink to="#">Contact</NavbarLink> 
                 </div>
 
