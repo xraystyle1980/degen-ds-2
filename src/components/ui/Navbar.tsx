@@ -101,51 +101,51 @@ const NetworkSelect: FC<NetworkSelectProps> = ({ options, placeholder = 'Select 
   );
 };
 
-
 const Navbar: FC = () => {
   const walletAddress = '0x9876...ABCD'; // Replace with dynamic data as needed
   return (
     <nav className="w-full container mx-auto flex items-center justify-between px-2 bg-white rounded-xl">
       <div className="flex w-full items-center justify-between">
 
-{/* Mobile */}
-        <Sheet>
 
+{/* Mobile Navs */}
+        <Sheet>
           <SheetTrigger asChild className='lg:hidden'>
             <div className='pl-1 m-2 hover:bg-gray-100 transition-colors rounded-md cursor-pointer'>
               <Menu className="degen-nav-wrapper w-8 lg:hidden" />
               <span className="sr-only">Toggle menu</span>
             </div>
           </SheetTrigger>
-
           <SheetContent side="left" className="degen-sheet w-[300px] bg-white shadow-lg p-1">
             <div className="flex flex-col h-full px-0 py-6">
               <div className="flex w-full items-center">
-                <Logo src="src/assets/degen-logo-dark.svg" className="" alt="DEGEN Logo" />
+                <Logo src="src/assets/degen-logo-dark.svg" className="w-[220px]" alt="DEGEN Logo" />
               </div>
               <div className="flex flex-col h-full justify-center">
                 <Separator className="bg-gray-200" />
+{/* About */}
                 <div className='degen-nav-sidebar degen-nav-sidebar-vert-rhythm'>
                   <NavbarLink to="#">About</NavbarLink> 
                 </div>
                 <Separator className="bg-gray-200" />
+{/* Developers */}
                 <div className='degen-nav-sidebar degen-nav-sidebar-vert-rhythm'>
                   <NavbarLink to="#">Developers</NavbarLink> 
                 </div>
                 <Separator className="bg-gray-200" />
-                <div className=''>
-                  <Accordion className='w-full' type="single" collapsible>
-                    <AccordionItem value="item-1">
-                      <AccordionTrigger className='degen-nav-sidebar !no-underline px-2 text-lg'>
-                        <span>Product</span>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <ProductLinks /> 
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </div>
+{/* Product */}
+                <Accordion className='w-full' type="single" collapsible>
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger className='degen-nav-sidebar !no-underline px-2 text-lg'>
+                      <span>Product</span>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <ProductLinks /> 
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
                 <Separator className="bg-gray-200" />
+{/* Contact */}
                 <div className='degen-nav-sidebar degen-nav-sidebar-vert-rhythm'>
                   <NavbarLink to="#">Contact</NavbarLink> 
                 </div>
@@ -153,6 +153,7 @@ const Navbar: FC = () => {
               </div>
               <section className="" aria-labelledby="User Wallet Menu">
               <Separator className="bg-gray-200" />
+{/* Wallet */}
                 <div className="flex items-center gap-1 py-3 px-2">
                   <AvatarIcon className="w-4" />
                   <span>user-wallet.ens</span>
