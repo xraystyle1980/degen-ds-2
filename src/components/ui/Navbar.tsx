@@ -14,11 +14,6 @@ import ChevronDownIcon from 'pixelarticons/svg/chevron-down.svg?react'
 import Menu from 'pixelarticons/svg/menu.svg?react'
 
 
-interface LogoProps {
-  src: string;
-  alt: string;
-  className?: string; // Add className as an optional prop
-};
 interface WalletMenuProps {
   walletAddress: string;
 };
