@@ -1,3 +1,5 @@
+import DegenLogo from '@/assets/degen-logo-dark.svg?react'
+
 export const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-White--2">
@@ -15,7 +17,7 @@ export const Header = () => {
           {/* Desktop-only content */}
           <div className="hidden lg:block">
             <div className="h-12 flex justify-end">
-              <img src="src/assets/degen-logo-default.svg" className="w-20 my-2" alt="DEGEN Logo" />
+              <DegenLogo className="w-20 my-2" />
             </div>
             <p className="text-sm text-right">Degen Design System</p>
             <p className="text-sm text-right text-gray-400">version 1.0.1</p>

@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-
+import DegenLogo from '@/assets/degen-logo-dark.svg?react'
 // Icons from pixelarticons
 import CopyIcon from 'pixelarticons/svg/copy.svg?react'
 import AvatarIcon from 'pixelarticons/svg/avatar.svg?react'
@@ -36,11 +36,11 @@ const networkOptions = [
 const handleNetworkChange = (value: string) => {
   console.log(`Selected network: ${value}`);
 };
-const Logo: FC<LogoProps> = ({ src, alt }) => (
-  <NavLink to="/" className="inline-flex items-center">
-    <img src={src} alt={alt} />
-  </NavLink>
-);
+// const Logo: FC<LogoProps> = ({ src, alt }) => (
+//   <NavLink to="/" className="inline-flex items-center">
+//     <img src={src} alt={alt} />
+//   </NavLink>
+// );
 const TokenBalance: FC<{ balance?: string }> = ({ balance = "failed to load balance" }) => (
     <span>{balance}</span>
 );
@@ -119,7 +119,7 @@ const Navbar: FC = () => {
           <SheetContent side="left" className="degen-sheet w-[300px] bg-white shadow-lg p-1">
             <div className="flex flex-col h-full px-0 py-6">
               <div className="flex w-full items-center">
-                <Logo src="src/assets/degen-logo-dark.svg" className="w-[220px]" alt="DEGEN Logo" />
+                <DegenLogo />
               </div>
               <div className="flex flex-col h-full justify-center">
                 <Separator className="bg-gray-200" />
@@ -186,7 +186,7 @@ const Navbar: FC = () => {
 {/* Desktop Navs */}
         <div className="hidden lg:flex w-full items-center p-2">
           <div className="flex gap-4 items-center w-full h-14">
-            <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" className="h-6 w-auto" />
+            <DegenLogo className="" />
 {/* About */}
             <div className='degen-nav-wrapper'>
               <NavbarLink to="#">About</NavbarLink> 
