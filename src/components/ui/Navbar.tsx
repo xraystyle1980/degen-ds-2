@@ -38,7 +38,7 @@ const handleNetworkChange = (value: string) => {
 };
 const Logo: FC<LogoProps> = ({ src, alt }) => (
   <NavLink to="/" className="inline-flex items-center">
-    <img src={src} className="max-w-[120px]" alt={alt} />
+    <img src={src} alt={alt} />
   </NavLink>
 );
 const TokenBalance: FC<{ balance?: string }> = ({ balance = "failed to load balance" }) => (
@@ -80,7 +80,7 @@ const WalletMenuCopyButton: FC<WalletMenuProps> = ({ walletAddress }) => {
   );
 };
 const NavbarLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => (
-  <NavLink className="degen-nav" to={to}>
+  <NavLink className="degen-nav-normalize flex-grow" to={to}>
     {children}
   </NavLink>
 );
@@ -92,7 +92,7 @@ const NetworkSelect: FC<NetworkSelectProps> = ({ options, placeholder = 'Select 
       </SelectTrigger>
       <SelectContent className="bg-white">
         {options.map((option) => (
-          <SelectItem key={option.value} value={option.value} className="py-2">
+          <SelectItem key={option.value} value={option.value} className="degen-nav-wrapper">
             {option.label}
           </SelectItem>
         ))}
@@ -112,49 +112,50 @@ const Navbar: FC = () => {
         <Sheet>
 
           <SheetTrigger asChild className='lg:hidden'>
-            <div className='p-1 m-2 hover:bg-gray-100 transition-colors rounded-md cursor-pointer'>
-              <Menu className="w-8 lg:hidden" />
+            <div className='pl-1 m-2 hover:bg-gray-100 transition-colors rounded-md cursor-pointer'>
+              <Menu className="degen-nav-wrapper w-8 lg:hidden" />
               <span className="sr-only">Toggle menu</span>
             </div>
           </SheetTrigger>
 
-          <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white shadow-lg p-1">
-            <div className="flex flex-col h-full space-y-4 px-2 py-6">
-              <div className="flex items-center">
-                <Logo src="src/assets/degen-logo-dark.svg" alt="DEGEN Logo" className="h-full" />
+          <SheetContent side="left" className="degen-sheet w-[300px] bg-white shadow-lg p-1">
+            <div className="flex flex-col h-full px-0 py-6">
+              <div className="flex w-full items-center">
+                <Logo src="src/assets/degen-logo-dark.svg" className="" alt="DEGEN Logo" />
               </div>
-              
               <div className="flex flex-col h-full justify-center">
-                
-                <div className='border-black border-b py-4 my-2'>
+                <Separator className="bg-gray-200" />
+                <div className='degen-nav-sidebar degen-nav-sidebar-vert-rhythm'>
                   <NavbarLink to="#">About</NavbarLink> 
                 </div>
-
-                <div className='border-black border-b py-4 my-2'>
+                <Separator className="bg-gray-200" />
+                <div className='degen-nav-sidebar degen-nav-sidebar-vert-rhythm'>
                   <NavbarLink to="#">Developers</NavbarLink> 
                 </div>
-
-                <Accordion className='pb-0 my-2 border-black border-b' type="single" collapsible>
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger className=''>Product</AccordionTrigger>
-                    <AccordionContent>
-                      <ProductLinks /> 
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-
-                <div className='border-black border-b py-4 my-2'>
+                <Separator className="bg-gray-200" />
+                <div className=''>
+                  <Accordion className='w-full' type="single" collapsible>
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger className='degen-nav-sidebar !no-underline px-2 text-lg'>
+                        <span>Product</span>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <ProductLinks /> 
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+                <Separator className="bg-gray-200" />
+                <div className='degen-nav-sidebar degen-nav-sidebar-vert-rhythm'>
                   <NavbarLink to="#">Contact</NavbarLink> 
                 </div>
-
+                <Separator className="bg-gray-200" />
               </div>
-
-
               <section className="" aria-labelledby="User Wallet Menu">
-                <div className="degen-nav-wrapper degen-nav">
+              <Separator className="bg-gray-200" />
+                <div className="flex items-center gap-1 py-3 px-2">
                   <AvatarIcon className="w-4" />
                   <span>user-wallet.ens</span>
-                  <ChevronDownIcon className="w-4" />
                 </div>
                 <section className="px-2 p-2 flex gap-x-1" aria-labelledby="Wallet Address Copy">
                   <WalletMenuCopyButton walletAddress={walletAddress} />
@@ -164,20 +165,18 @@ const Navbar: FC = () => {
                     Balance <TokenBalance balance="420,669 DGN" />
                   </div>
                 </section>
-                {/* <Separator className="bg-gray-200" /> */}
-                <section className="flex flex-col px-2 py-3" aria-labelledby="Select Network">
-                  <span className="text-xs font-nunitosans">Network</span>
+                <Separator className="bg-gray-200" />
+                <section className="flex flex-col px-2 py-4 gap-1" aria-labelledby="Select Network">
+                  <span className="text-xs">Network</span>
                   <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
                 </section>
-                {/* <Separator className="bg-gray-200" /> */}
+                <Separator className="bg-gray-200" />
                 <section className="flex flex-col px-2 py-2" aria-labelledby="Disconnect">
-                  <Button variant="ghost" className='justify-center border-none shadow-none rounded-md w-full'>
+                  <Button variant="ghost" className='degen-nav-wrapper'>
                     Disconnect<span className="sr-only">Disconnect</span>
                   </Button>
                 </section>
               </section>
-
-
             </div>
           </SheetContent>
         </Sheet>
@@ -198,7 +197,7 @@ const Navbar: FC = () => {
 {/* Product */}
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <div className="degen-nav-wrapper degen-nav">
+                <div className="degen-nav-wrapper degen-nav-normalize">
                   <span>Product</span>
                   <ChevronDownIcon className="w-4" />
                 </div>
@@ -218,7 +217,7 @@ const Navbar: FC = () => {
             <DropdownMenu>
               <DropdownMenuTrigger className="">
                 <section className="" aria-labelledby="User Wallet Menu">
-                  <div className="degen-nav-wrapper degen-nav">
+                  <div className="degen-nav-wrapper degen-nav-normalize">
                     <AvatarIcon className="w-4" />
                     <span>user-wallet.ens</span>
                     <ChevronDownIcon className="w-4" />
@@ -237,17 +236,16 @@ const Navbar: FC = () => {
                 <DropdownMenuSeparator className="bg-gray-200" />
                 <section className="flex flex-col px-2 py-3" aria-labelledby="Select Network">
                   <span className="text-xs font-nunitosans">Network</span>
-                  <NetworkSelect options={networkOptions} placeholder="Select a network" onChange={handleNetworkChange} />
+                  <NetworkSelect options={networkOptions} placeholder="Sepolia" onChange={handleNetworkChange} />
                 </section>
                 <DropdownMenuSeparator className="bg-gray-200" />
                 <section className="flex flex-col px-2 py-2" aria-labelledby="Disconnect">
-                  <Button variant="ghost" className='justify-center border-none shadow-none rounded-md w-full'>
+                  <Button variant="ghost" className='degen-nav-wrapper p-1'>
                     Disconnect<span className="sr-only">Disconnect</span>
                   </Button>
                 </section>
               </DropdownMenuContent>
             </DropdownMenu>
-
         </div>
       </div>
     </nav>

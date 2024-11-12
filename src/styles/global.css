@@ -59,10 +59,16 @@
     @apply fill-current;
   }
   .degen-nav-wrapper {
-    @apply bg-white flex items-center gap-x-1 rounded-md transition-colors duration-200 ease-in-out hover:bg-accent;
+    @apply bg-white flex items-center gap-x-1 rounded-md transition-colors duration-200 ease-in-out hover:bg-slate-50 hover:text-primary;
   }
-  .degen-nav {
-    @apply whitespace-nowrap text-sm px-2 py-2;
+  .degen-nav-normalize {
+    @apply whitespace-nowrap !px-2 !py-2;
+  }
+  .degen-nav-sidebar {
+    @apply bg-white text-lg flex items-center transition-colors duration-200 ease-in-out hover:bg-slate-50 hover:text-primary;
+  }
+  .degen-nav-sidebar-vert-rhythm {
+    @apply py-2;
   }
 }
 
