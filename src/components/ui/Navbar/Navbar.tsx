@@ -2,7 +2,6 @@ import { FC } from 'react'
 import MobileSidebar from './MobileSidebar'
 import DesktopNav from './DesktopNav'
 
-
 const Navbar: FC = () => {
   const walletAddress = '0x9876...ABCD';
   const networkOptions = [
@@ -31,6 +30,5 @@ const Navbar: FC = () => {
     </nav>
   );
 };
-
 
 export default Navbar;
