@@ -1,14 +1,13 @@
 {
   "name": "degen-ds-2",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "chromatic": "npx chromatic --project-token=chpt_fbf4309e59ce42d"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.1",
