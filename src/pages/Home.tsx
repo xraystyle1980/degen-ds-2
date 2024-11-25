@@ -19,7 +19,7 @@ const Home = () => {
             />
           </div>
         <div className="component-zone" id="component-zone"> {/* Build components below 👇 */}
-          <h6 className="text-xs my-2 md:hidden lg:block">Desktop</h6>
+          <h6 className="text-xs my-2">Desktop</h6>
           <h6 className="text-xs my-2 lg:hidden text-gray-400 text-center">
             <div className="flex gap-2 justify-center align-center">
               <HiddenIcon className="w-4" /> Desktop Hidden
