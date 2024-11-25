@@ -1,5 +1,3 @@
-// MobileSidebar.tsx
-
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'

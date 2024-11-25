@@ -1,5 +1,3 @@
-// MobileSidebar.tsx
-
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
@@ -27,11 +25,6 @@ interface MobileSidebarProps {
 
 const MobileSidebar: FC<MobileSidebarProps> = ({ walletAddress, networkOptions, handleNetworkChange }) => {
   return (
-
-<div id="mockup-device" className="rounded-lg overflow-hidden">
-      {/* Mockup Content */}
-    
-    
     <Sheet>
       <SheetTrigger asChild>
         <div className="pl-1 m-2 hover:bg-gray-100 transition-colors rounded-md cursor-pointer">
@@ -39,10 +32,7 @@ const MobileSidebar: FC<MobileSidebarProps> = ({ walletAddress, networkOptions, 
           <span className="sr-only">Toggle menu</span>
         </div>
       </SheetTrigger>
-      <SheetContent side="left" className="absolute degen-sheet w-[300px] bg-white shadow-lg p-1">
-
-     
-    
+      <SheetContent side="left" className="degen-sheet w-[300px] bg-white shadow-lg p-1">
         <div className="flex flex-col h-full px-0 py-6">
           <div className="flex w-full items-center">
             <DegenLogo />
@@ -128,7 +118,6 @@ const MobileSidebar: FC<MobileSidebarProps> = ({ walletAddress, networkOptions, 
         </div>
       </SheetContent>
     </Sheet>
-    </div>
   );
 };
 
