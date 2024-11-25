@@ -1,6 +1,9 @@
 import NavbarjustMobile from "@/components/ui/Navbar/NavbarjustMobile";
 import Navbar from "@/components/ui/Navbar/Navbar"
 import MyCodeComponent from "@/components/ui/MyCodeComponent";
+// Icons from pixelarticons
+import HiddenIcon from 'pixelarticons/svg/hidden.svg?react'
+
 
 const Home = () => {
     return (
@@ -16,7 +19,13 @@ const Home = () => {
             />
           </div>
         <div className="component-zone" id="component-zone"> {/* Build components below 👇 */}
-          <h6 className="text-xs my-2">Desktop<span className="lg:hidden"> / Responsive</span></h6>
+          <h6 className="text-xs my-2 md:hidden lg:block">Desktop</h6>
+          <h6 className="text-xs my-2 lg:hidden text-gray-400 text-center">
+            <div className="flex gap-2 justify-center align-center">
+              <HiddenIcon className="w-4" /> Desktop Hidden
+            </div>
+          </h6>
+          <h6 className="text-xs my-2 lg:hidden">Responsive</h6>
           <Navbar />  
           
           <div className="my-4 hidden lg:block">
